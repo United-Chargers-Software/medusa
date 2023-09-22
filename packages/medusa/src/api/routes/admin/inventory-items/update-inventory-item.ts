@@ -1,19 +1,20 @@
-import { IInventoryService } from "@medusajs/types"
 import { IsBoolean, IsNumber, IsOptional, IsString } from "class-validator"
 import { Request, Response } from "express"
+
 import { EntityManager } from "typeorm"
 import { FindParams } from "../../../../types/common"
+import { IInventoryService } from "@medusajs/types"
 
 /**
  * @oas [post] /admin/inventory-items/{id}
  * operationId: "PostInventoryItemsInventoryItem"
  * summary: "Update an Inventory Item"
- * description: "Updates an Inventory Item."
+ * description: "Update an Inventory Item's details."
  * x-authenticated: true
  * parameters:
  *   - (path) id=* {string} The ID of the Inventory Item.
- *   - (query) expand {string} Comma separated list of relations to include in the results.
- *   - (query) fields {string} Comma separated list of fields to include in the results.
+ *   - (query) expand {string} Comma-separated relations that should be expanded in the returned inventory level.
+ *   - (query) fields {string} Comma-separated fields that should be included in the returned inventory level.
  * requestBody:
  *   content:
  *     application/json:
@@ -38,9 +39,9 @@ import { FindParams } from "../../../../types/common"
  *   - lang: Shell
  *     label: cURL
  *     source: |
- *       curl --location --request POST 'https://medusa-url.com/admin/inventory-items/{id}' \
- *       --header 'Authorization: Bearer {api_token}' \
- *       --header 'Content-Type: application/json' \
+ *       curl -X POST '{backend_url}/admin/inventory-items/{id}' \
+ *       -H 'Authorization: Bearer {api_token}' \
+ *       -H 'Content-Type: application/json' \
  *       --data-raw '{
  *           "origin_country": "US"
  *       }'
@@ -158,6 +159,18 @@ export class AdminPostInventoryItemsInventoryItemReq {
   @IsOptional()
   @IsNumber()
   width?: number
+
+  @IsString()
+  @IsOptional()
+  title?: string
+
+  @IsString()
+  @IsOptional()
+  description?: string
+
+  @IsString()
+  @IsOptional()
+  thumbnail?: string
 
   @IsBoolean()
   @IsOptional()

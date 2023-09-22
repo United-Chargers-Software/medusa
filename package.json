@@ -1,5 +1,6 @@
 {
-  "name": "root",
+  "name": "medusa-connect",
+  "repository": "git://github.com/United-Chargers-Software/medusa.git",
   "private": true,
   "workspaces": {
     "packages": [
